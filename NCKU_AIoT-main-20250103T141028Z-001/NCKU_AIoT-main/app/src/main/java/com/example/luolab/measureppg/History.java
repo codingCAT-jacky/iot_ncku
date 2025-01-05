@@ -153,15 +153,23 @@ public class History extends Fragment /*implements Update*/{
 
         recordsHandler = new Handler();
         HistoryView = inflater.inflate(R.layout.history, container, false);
+
+        TextView textView = HistoryView.findViewById(R.id.textView9);
+        textView.setText(usrName + " - 歷史訓練次數查詢");
+
         GraphView historyDataGraph = HistoryView.findViewById(R.id.historyGraph);
 
         historyDataGraph.getViewport().setMinX(0);
         historyDataGraph.getViewport().setMaxX(20);
         historyDataGraph.getViewport().setXAxisBoundsManual(true);
 
+
+
         Spinner dateRangeSpinner = HistoryView.findViewById(R.id.dateRangeSpinner);
 
         Button updateGraph_btn = HistoryView.findViewById(R.id.updateGraph);
+
+
 
         updateGraph_btn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -227,7 +235,7 @@ public class History extends Fragment /*implements Update*/{
         ViewGroup.LayoutParams params = historyDataGraph.getLayoutParams();
 
 
-
+        historyDataGraph.removeAllSeries();
 
 
         String[] dateLabels = getDateRangeLabels(dayRange);
@@ -256,12 +264,34 @@ public class History extends Fragment /*implements Update*/{
 
         Log.d("dateLabels", Arrays.toString(dateLabels));
 
-        DataPoint[] dataPoints = new DataPoint[4]; // 生成 3 个数据点
-        dataPoints[0] = new DataPoint(2, getDateDaysAgo(0)); // X = 2, Y = 今天日期时间戳
-        dataPoints[1] = new DataPoint(5, getDateDaysAgo(1)); // X = 5, Y = 昨天日期时间戳
-        dataPoints[2] = new DataPoint(10, getDateDaysAgo(2)); // X = 10, Y = 前天日期时间戳
 
-        dataPoints[3] = new DataPoint(15, getDateDaysAgo(3)); // X = 10, Y = 前天日期时间戳
+
+        DataPoint[] dataPoints = new DataPoint[dateLabels.length]; // 生成 3 个数据点
+        for (int i = 0; i < dateLabels.length; i++) {
+            int count = 0;
+            for (int j = 0; j < userDataDateRecordList.size(); j++) {
+                if(dateLabels[i].equals((userDataDateRecordList.get(j)))){
+                    count += 1;
+                }
+            }
+//            Log.d("count", String.valueOf(count));
+            dataPoints[i] = new DataPoint(count, i);
+        }
+        for (int i = 0; i < dataPoints.length; i++) {
+            if (dataPoints[i] != null) {
+                Log.d("DataPoint", "Index " + i + ": ("
+                        + dataPoints[i].getX() + ", " + dataPoints[i].getY() + ")");
+            } else {
+                Log.d("DataPoint", "Index " + i + ": null");
+            }
+        }
+
+
+         // X = 2, Y = 今天日期时间戳
+//        dataPoints[1] = new DataPoint(5, getDateDaysAgo(1)); // X = 5, Y = 昨天日期时间戳
+//        dataPoints[2] = new DataPoint(10, getDateDaysAgo(2)); // X = 10, Y = 前天日期时间戳
+//
+//        dataPoints[3] = new DataPoint(15, getDateDaysAgo(3)); // X = 10, Y = 前天日期时间戳
         return new LineGraphSeries<>(dataPoints);
     }
 
@@ -310,11 +340,11 @@ public class History extends Fragment /*implements Update*/{
                     if (key != null) {
                         String[] parts = key.split("_");
                         String timePart = parts[parts.length - 1].split(" ")[0];
-                        userDataDateRecordList.add(timePart);
-//                        Log.d("timePart", timePart);
-                        // 提取时间部分
-//                        String timePart = key.replace("User1_selectedPara_PPGTimemin_", "");
-//                        System.out.println("Extracted Time: " + timePart);
+                        String yearPart = timePart.split("-")[0].substring(2);
+                        String monthPart = timePart.split("-")[1];
+                        String dayPart = timePart.split("-")[2];
+
+                        userDataDateRecordList.add(yearPart + "/" + monthPart + "/" + dayPart);
                     }
 
                 }
