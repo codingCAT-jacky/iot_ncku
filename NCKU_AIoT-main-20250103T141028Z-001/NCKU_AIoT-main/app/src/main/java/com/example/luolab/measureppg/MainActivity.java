@@ -5,17 +5,27 @@
 
 package com.example.luolab.measureppg;
 
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+//import android.support.design.widget.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+//import android.support.design.widget.Snackbar;
+import com.google.android.material.snackbar.Snackbar;
+//import android.support.design.widget.TabLayout;
+import com.google.android.material.tabs.TabLayout;
+//import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+//import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+//import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
+//import android.support.v4.app.FragmentManager;
+import androidx.fragment.app.FragmentManager;
+//import android.support.v4.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentPagerAdapter;
+//import android.support.v4.view.ViewPager;
+import 	androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,13 +34,16 @@ import android.view.ViewGroup;
 
 import android.view.WindowManager;
 import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-//Justin Add
-import com.clj.fastble.BleManager;
+
 public class MainActivity extends AppCompatActivity {
 
     /**
@@ -54,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -83,19 +98,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
         tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
+        Log.e("tab", Integer.toString(tabLayout.getTabCount()));
+
         createTabIcons();
-        //Justin Add
-        //BLE initialize
-        BleManager.getInstance().init(getApplication());
-        //BLE configuration
-        BleManager.getInstance()
-                .enableLog(true)
-                .setReConnectCount(1, 5000)
-                .setConnectOverTime(20000)
-                .setOperateTimeout(5000);
 
     }
     private void createTabIcons()
@@ -115,6 +123,11 @@ public class MainActivity extends AppCompatActivity {
         tabFive.setText("訓練紀錄");
         //tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ppg, 0, 0);
         tabLayout.getTabAt(2).setCustomView(tabFive);
+
+        TextView tabSix = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+        tabSix.setText("歷史訓練紀錄");
+        //tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ppg, 0, 0);
+        tabLayout.getTabAt(3).setCustomView(tabSix);
     }
 
     @Override
@@ -131,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        //noinspection SimplifiableIfStatementZ
         if (id == R.id.action_settings) {
             return true;
         }
@@ -176,8 +189,14 @@ public class MainActivity extends AppCompatActivity {
             {
                 rootView = (new GuanView()).onCreateView(inflater, container, savedInstanceState);
             }
-            else
+            else if(getArguments().getInt(ARG_SECTION_NUMBER) == 3)
+            {
                 rootView = (new ShowData()).onCreateView(inflater, container, savedInstanceState);
+            }
+            else
+            {
+                rootView = (new History()).onCreateView(inflater, container, savedInstanceState);
+            }
             return rootView;
         }
     }
@@ -208,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 4;
         }
     }
 }

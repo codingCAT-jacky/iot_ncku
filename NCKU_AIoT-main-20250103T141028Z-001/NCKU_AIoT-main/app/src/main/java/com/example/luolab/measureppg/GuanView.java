@@ -26,8 +26,10 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.os.StrictMode;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
+//import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
+//import android.support.design.widget.TabLayout;
+import com.google.android.material.tabs.TabLayout;
 import android.text.SpannableString;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -87,37 +89,18 @@ import java.util.zip.Inflater;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+
 import uk.me.berndporr.iirj.Butterworth;
 import com.github.psambit9791.jdsp.windows.Hanning;
 import com.github.psambit9791.jdsp.transform.FastFourier;
 
+
+
 import static android.hardware.usb.UsbManager.ACTION_USB_DEVICE_DETACHED;
-//Justin
-import android.os.Process;
-import android.os.Build;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothGattService;
-import android.bluetooth.BluetoothGattCharacteristic;
-import android.bluetooth.BluetoothGatt;
-import android.bluetooth.BluetoothGattDescriptor;
-import android.bluetooth.BluetoothGattService;
-import android.bluetooth.BluetoothProfile;
-import java.util.UUID;
-import android.widget.ListView;
-import com.clj.fastble.BleManager;
-import com.clj.fastble.callback.BleGattCallback;
-import com.clj.fastble.callback.BleNotifyCallback;
-import com.clj.fastble.callback.BleReadCallback;
-import com.clj.fastble.callback.BleScanCallback;
-import com.clj.fastble.callback.BleWriteCallback;
-import com.clj.fastble.data.BleDevice;
-import com.clj.fastble.exception.BleException;
-import com.clj.fastble.scan.BleScanRuleConfig;
 import static java.lang.Double.NaN;
 
 public class GuanView extends Fragment {
 
-    private BleDevice nowBleDevice;
     private final int SerialDataSize = 90060;
     private View GuanView;
     private View menu_dialogView;
@@ -467,17 +450,7 @@ public class GuanView extends Fragment {
     private Date current2;
 
     public final String ACTION_USB_PERMISSION = "com.hariharan.arduinousb.USB_PERMISSION";
-    //Justin Add
-    public final static String ACTION_GATT_CONNECTED =
-            "com.example.bluetooth.le.ACTION_GATT_CONNECTED";
-    public final static String ACTION_GATT_DISCONNECTED =
-            "com.example.bluetooth.le.ACTION_GATT_DISCONNECTED";
-    private ArrayAdapter<String> deviceName;
-    private ArrayAdapter<String> deviceId;
-    private List<BleDevice> bleDeviceList = new ArrayList<>();
-    private Button button_paired;
-    private Button button_find;
-    private ListView event_listView;
+
 
     private static final Random RANDOM = new Random();
     private int lastX = 0;
@@ -491,11 +464,36 @@ public class GuanView extends Fragment {
     private DatabaseReference rawDataRef;
 
     private Handler mHandler2 = new Handler();
+    private Handler handler5 = new Handler();
+    Thread workerThread1;
+    private int countT = 0;
 
     // Serial port 有資料傳進來手機時就會被觸發此事件，可進行讀取資料
     UsbSerialInterface.UsbReadCallback mCallback = new UsbSerialInterface.UsbReadCallback() { //Defining a Callback which triggers whenever data is read.
         @Override
         public void onReceivedData(byte[] arg0) {
+            countT++;
+//            byte[] encodedBytes = new byte[arg0.length];
+//            System.arraycopy(arg0, 0, encodedBytes, 0, encodedBytes.length); //把readBuffer陣列的值複製到encodeBytes陣列裡
+            if(countT <= 2){
+
+                countT++;
+                String data = new String(arg0);
+                workerThread1 = new Thread(new Runnable() { //建立Thread是否運作，是的話進入迴圈，不是就跳出迴圈
+                    @Override
+                    public void run() { // Thread物件會調用Runnable物件的run()方法，來控制。
+
+                        handler5.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(LInflater.getContext(), arg0[0] + "TEST", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    }
+                });
+                workerThread1.start();
+            }
             handleData(arg0,arg0.length,LInflater);
         }
     };
@@ -512,7 +510,7 @@ public class GuanView extends Fragment {
                     serialPort = UsbSerialDevice.createUsbSerialDevice(device, connection);
                     if (serialPort != null) {
                         if (serialPort.open()) { //Set Serial Connection Parameters.
-                            serialPort.setBaudRate(115200);
+                            serialPort.setBaudRate(9600);
                             serialPort.setDataBits(UsbSerialInterface.DATA_BITS_8);
                             serialPort.setStopBits(UsbSerialInterface.STOP_BITS_1);
                             serialPort.setParity(UsbSerialInterface.PARITY_NONE);
@@ -693,6 +691,9 @@ public class GuanView extends Fragment {
         post_start_mpoint = PPGTime*60*ppg_fs;
         finish_mpoint = ((PPGTime+postRecordPPGTime)*60*ppg_fs)-5;
 
+
+
+
         GuanView = inflater.inflate(R.layout.guan, container, false);
         LInflater = inflater;
         fileHandler = new Handler();
@@ -707,6 +708,9 @@ public class GuanView extends Fragment {
 
         trigger_val = Math.abs(target_val - init_val)/feedback_time;
         selectedPara = "Breathing rate";
+
+
+
 
         radioGroup = GuanView.findViewById(R.id.radioGroupx);
         buttonApply = GuanView.findViewById(R.id.ok_btn);
@@ -756,29 +760,6 @@ public class GuanView extends Fragment {
         filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
         filter.addAction(ACTION_USB_DEVICE_DETACHED);
         inflater.getContext().registerReceiver(broadcastReceiver, filter);
-        //Justin Add
-        //同地方註冊藍芽使用
-        button_paired = (Button) GuanView.findViewById(R.id.btn_paired);
-        button_find = (Button) GuanView.findViewById(R.id.btn_conn);
-        event_listView = (ListView) GuanView.findViewById(R.id.Show_B_List);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            event_listView.setNestedScrollingEnabled(true);
-        }
-        deviceName = new ArrayAdapter<String>((Activity) LInflater.getContext(), android.R.layout.simple_expandable_list_item_1);
-        deviceId = new ArrayAdapter<String>((Activity) LInflater.getContext(), android.R.layout.simple_expandable_list_item_1);
-        button_paired.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startScan();
-            }
-        });
-        button_find.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                notifyBle();
-                //readBleData();
-            }
-        });
 
         //使用者介面物件宣告
         G_Graph = GuanView.findViewById(R.id.data_chart);
@@ -954,8 +935,8 @@ public class GuanView extends Fragment {
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-
-                                        addEntry();
+                                        calHeartRate();
+                                        //addEntry();
                                     }
                                 });
                                 try{
@@ -969,7 +950,7 @@ public class GuanView extends Fragment {
                     }).start();
 
 */
-
+                    Log.e("start_btn", "start_btn");
                     calHeartRate();
                     findIntervalThread.start();
                     finishAndUpload();
@@ -1111,10 +1092,9 @@ public class GuanView extends Fragment {
         return ans;
     }
 
-    public void Upload_Firebase2(String t,String s,String d)
-    {
-        final FirebaseDatabase database=FirebaseDatabase.getInstance();//取得資料庫連結
-        DatabaseReference myRef=database.getReference(t);//新增資料節點
+    public void Upload_Firebase2(String user, String t, String s, String d) {
+        final FirebaseDatabase database = FirebaseDatabase.getInstance(); // 取得資料庫連結
+        DatabaseReference myRef = database.getReference(user).child(t);   // 新增資料節點，包含 User1
         myRef.child(s).push().setValue(d);
     }
 
@@ -1218,6 +1198,7 @@ public class GuanView extends Fragment {
 
                 String header = usrName +"_"+ selectedPara+"_" + PPGTime+"min"+"_"+sdf2.format(current2) ;
 
+
                 if(sig_small && mXPoint<4500){
                     mpSigSmall.start();
                     sig_small= false;
@@ -1237,39 +1218,38 @@ public class GuanView extends Fragment {
                 }
                 */
 
-
                 if(SDNN != 0 ) {
                     paraData[0][0] = SDNN;
                     paraData[0][1] = 0;
                     SDNNDataSeries.Qpush(paraData);
                     SimpleDateFormat sdf = new SimpleDateFormat("MM_dd HH:mm:ss");
                     Date current = new Date();
-                    Upload_Firebase2(header,"timestr",sdf.format(current));
-                    Upload_Firebase2(header,"ppgstr",windowed_ppg_str);
+                    Upload_Firebase2(usrName, header,"timestr",sdf.format(current));
+                    Upload_Firebase2(usrName, header,"ppgstr",windowed_ppg_str);
                     //Upload_Firebase2(header,"raw_data0",raw_data0_str);
                     //Upload_Firebase2(header,"raw_data1",raw_data1_str);
                     String config = "Inital value: "+Double.toString(init_val)+ ", Target value: "+Double.toString(target_val)+", Feedback time: "+Double.toString(feedback_time);
                     String vc_str = Integer.toString(voice_ctr);
-                    Upload_Firebase2(header, "config", config);
-                    Upload_Firebase2(header, "feedback counter", vc_str);
+                    Upload_Firebase2(usrName, header, "config", config);
+                    Upload_Firebase2(usrName, header, "feedback counter", vc_str);
 
 
                     //for debugging
-                    Upload_Firebase2(header,"artilist0_str",artilist0_str);
-                    Upload_Firebase2(header,"artilist1_str",artilist1_str);
-                    Upload_Firebase2(header,"artilist2_str",artilist2_str);
-                    Upload_Firebase2(header,"rrlist_str",rrlist_str);
+                    Upload_Firebase2(usrName, header,"artilist0_str",artilist0_str);
+                    Upload_Firebase2(usrName, header,"artilist1_str",artilist1_str);
+                    Upload_Firebase2(usrName, header,"artilist2_str",artilist2_str);
+                    Upload_Firebase2(usrName, header,"rrlist_str",rrlist_str);
                     //Upload_Firebase2(header,"RIIV_sliding_window_str",RIIV_sliding_window_str);
                     //Upload_Firebase2(header,"RIAV_sliding_window_str",RIAV_sliding_window_str);
                     //Upload_Firebase2(header,"RIFV_sliding_window_str",RIFV_sliding_window_str);
-                    Upload_Firebase2(header,"SDNN_thres_str",SDNN_thres_str);
-                    Upload_Firebase2(header,"SDNN_remeasure_str",SDNN_remeasure_str);
-                    Upload_Firebase2(header,"fft_window_SDNN_str",fft_window_SDNN_str);
-                    Upload_Firebase2(header,"fft_window_ROI_lower_Idx_str",fft_window_ROI_lower_Idx_str);
-                    Upload_Firebase2(header,"fft_window_RIIV_bpm_str",fft_window_RIIV_bpm_str);
-                    Upload_Firebase2(header,"fft_window_RIAV_bpm_str",fft_window_RIAV_bpm_str);
-                    Upload_Firebase2(header,"fft_window_RIFV_bpm_str",fft_window_RIFV_bpm_str);
-                    Upload_Firebase2(header,"skip_window_str",skip_window_str);
+                    Upload_Firebase2(usrName, header,"SDNN_thres_str",SDNN_thres_str);
+                    Upload_Firebase2(usrName, header,"SDNN_remeasure_str",SDNN_remeasure_str);
+                    Upload_Firebase2(usrName, header,"fft_window_SDNN_str",fft_window_SDNN_str);
+                    Upload_Firebase2(usrName, header,"fft_window_ROI_lower_Idx_str",fft_window_ROI_lower_Idx_str);
+                    Upload_Firebase2(usrName, header,"fft_window_RIIV_bpm_str",fft_window_RIIV_bpm_str);
+                    Upload_Firebase2(usrName, header,"fft_window_RIAV_bpm_str",fft_window_RIAV_bpm_str);
+                    Upload_Firebase2(usrName, header,"fft_window_RIFV_bpm_str",fft_window_RIFV_bpm_str);
+                    Upload_Firebase2(usrName, header,"skip_window_str",skip_window_str);
 
 
                     //Upload_Firebase2(header,"RIFV_power_thres_str",RIFV_power_thres_str);
@@ -1281,7 +1261,7 @@ public class GuanView extends Fragment {
 
 
                     String sdnn_str = Double.toString(SDNN);
-                    Upload_Firebase2(header,"sdnn",sdnn_str);
+                    Upload_Firebase2(usrName, header,"sdnn",sdnn_str);
 
                 }
                 if(HF != 0 ) {
@@ -1290,7 +1270,7 @@ public class GuanView extends Fragment {
                     HFDataSeries.Qpush(paraData);
 
                     String HF_str = Double.toString(HF);
-                    Upload_Firebase2(header,"hf",HF_str);
+                    Upload_Firebase2(usrName, header,"hf",HF_str);
                 }
                 /*
                 if(LF_HF != 0) {
@@ -1370,7 +1350,7 @@ public class GuanView extends Fragment {
                     //G_Series2.appendData(new DataPoint(mXPointPara, 0), false, 200);
 
                     String br_str = Double.toString(breathRate);
-                    Upload_Firebase2(header,"br",br_str);
+                    Upload_Firebase2(usrName, header,"br",br_str);
 
                 }
                 double valueToPlot = 0;
@@ -1563,6 +1543,7 @@ public class GuanView extends Fragment {
     // 計算 BPM
     private void calHeartRate()
     {
+
         findIntervalThread = new Thread(){
             @Override
             public void run(){
@@ -1592,7 +1573,7 @@ public class GuanView extends Fragment {
                         long timeStart  = timestampQ.get(startPointer);
                         long timeEnd    = timestampQ.get(endPointer);
                         queueSize = dataQ.getQSize();
-
+                        Log.e("TAG", "queuesize:"+queueSize+", sliding_window_size:"+sliding_window_size);
                         if(queueSize <= sliding_window_size) continue;
 
                         try{
@@ -3172,10 +3153,7 @@ public class GuanView extends Fragment {
             Data[0] = (byte)(base+PPGTime);
 
         }
-        //Justin Add & Modify
-        //serialPort.write(Data);
-        writeToBle(Data);
-        notifyBle();
+        serialPort.write(Data);
     }
 
     // 將收到的 Serial 資料存入 Queue
@@ -3717,7 +3695,7 @@ public class GuanView extends Fragment {
                     mXPoint = 0;
                     keep_thread_running = false;
 
-                    new AlertDialog.Builder((Activity) LInflater.getContext()).setMessage("測量完畢，更新訓練紀錄!")
+                    new AlertDialog.Builder((Activity) LInflater.getContext()).setMessage("測量完畢，更新訓練紀錄!"+BRDataSeries.getQSize()+","+HFDataSeries.getQSize()+","+SDNNDataSeries.getQSize())
                             .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -3750,7 +3728,7 @@ public class GuanView extends Fragment {
                     ShowData.BRData = br_arr;;
                     ShowData.HRData = HRDataSeries.toArray(0,HRDataSeries.getQSize()-1,0);
                     //upload_btn.setEnabled(true);
-                     }
+                    }
                     //uploadFirebase("arrayLen:"+arrayLen+','+usrName,"訓練日期: "+sdf.format(current));
 
                     //Toast.makeText(LInflater.getContext(), "資料已上傳Firebase" , Toast.LENGTH_SHORT).show();
@@ -4320,198 +4298,5 @@ public class GuanView extends Fragment {
         return pad_arr;
     }
 
-    //Justin Add
-    private void setScanRule() {
-        BleScanRuleConfig scanRuleConfig = new BleScanRuleConfig.Builder()
-                //.setDeviceMac("50:F1:4A:CC:19:60")  // 只扫描指定mac的设备，可选
-                .setScanTimeOut(10000)              // 扫描超时时间，可选，默认10秒
-                .build();
-        BleManager.getInstance().initScanRule(scanRuleConfig);
-    }
-    private void startScan() {
-        setScanRule();
-        // Example usage of MyBleManager's public method
-        BleManager.getInstance().scan(new BleScanCallback() {
-            @Override
-            public void onScanStarted(boolean success) {
-                button_paired.setEnabled(false); // 禁用按钮
-                button_paired.setText("搜尋中~~~"); // 设置按钮的新文字
-                Log.d("onScanStarted", "成功");
-            }
 
-            @Override
-            public void onLeScan(BleDevice bleDevice) {
-//                Log.d("onLeScan", bleDevice.getName());
-            }
-
-            @Override
-            public void onScanning(BleDevice bleDevice) {
-//                Log.d("onScanning", bleDevice.getName());
-                deviceName.add(bleDevice.getName() + "  " +bleDevice.getMac());
-                deviceId.add(bleDevice.getMac());
-            }
-
-            @Override
-            public void onScanFinished(List<BleDevice> scanResultList) {
-                bleDeviceList = scanResultList;
-                event_listView.setAdapter(deviceName);
-                event_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> partent, View view, int position, long id) {
-                        String choseDevice = deviceId.getItem(position);
-                        for (BleDevice bleDevice : bleDeviceList) {
-                            if (bleDevice.getMac().equals(choseDevice)) {
-                                nowBleDevice = bleDevice;
-                                connect(nowBleDevice);
-                                break;
-                            }
-                        }
-                        Toast.makeText((Activity)LInflater.getContext(), "選擇了:" + choseDevice, Toast.LENGTH_SHORT).show();
-                        deviceName.clear();
-                        deviceId.clear();
-                    }
-                });
-                button_paired.setEnabled(true); // 禁用按钮
-                button_paired.setText("重新搜尋"); // 设置按钮的新文字
-                Log.d("onScanFinished", "onScanFinished");
-            }
-        });
-    }
-    private void connect(final BleDevice bleDevice) {
-        BleManager.getInstance().connect(bleDevice, new BleGattCallback() {
-            @Override
-            public void onStartConnect() {
-                button_paired.setEnabled(false); // 禁用按钮
-                button_paired.setText("開始連接"); // 设置按钮的新文字
-                Log.d("onStartConnect", "onStartConnect");
-            }
-
-            @Override
-            public void onConnectFail(BleDevice bleDevice, BleException exception) {
-                button_paired.setEnabled(true); // 禁用按钮
-                button_paired.setText("搜尋藍芽"); // 设置按钮的新文字
-                SerialFlag=false;
-                setButtonEnable(SerialFlag);
-                Toast.makeText((Activity)LInflater.getContext(), "藍芽連接失敗", Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onConnectSuccess(BleDevice bleDevice, BluetoothGatt gatt, int status) {
-                button_paired.setEnabled(false); // 禁用按钮
-                button_paired.setText("已成功連接" + bleDevice.getName() + ' ' + bleDevice.getMac()); // 设置按钮的新文字
-                SerialFlag=true;
-                setButtonEnable(SerialFlag);
-                Log.d("onConnectSuccess", "onConnectSuccess");
-            }
-
-            @Override
-            public void onDisConnected(boolean isActiveDisConnected, BleDevice bleDevice, BluetoothGatt gatt, int status) {
-                if (isActiveDisConnected) {
-                    Toast.makeText((Activity)LInflater.getContext(), "active_disconnected", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText((Activity)LInflater.getContext(), "disconnected", Toast.LENGTH_LONG).show();
-                }
-                button_paired.setEnabled(true); // 禁用按钮
-                button_paired.setText("搜尋藍芽"); // 设置按钮的新文字
-            }
-
-
-        });
-        //Todo Justin.
-        /*
-        if(BleManager.getInstance().isConnected(bleDevice)) {
-            BluetoothGatt gatt = BleManager.getInstance().getBluetoothGatt(bleDevice);
-            List<BluetoothGattService> serviceList = bluetoothGatt.getServices();
-            for (BluetoothGattService service : serviceList) {
-                UUID uuid_service = service.getUuid();
-                Toast.makeText((Activity)LInflater.getContext(), "uuid_service:" + uuid_service, Toast.LENGTH_SHORT).show();
-                List<BluetoothGattCharacteristic> characteristicList= service.getCharacteristics();
-                for(BluetoothGattCharacteristic characteristic : characteristicList) {
-                    UUID uuid_chara = characteristic.getUuid();
-                    Toast.makeText((Activity)LInflater.getContext(), "uuid_chara:" + uuid_chara, Toast.LENGTH_SHORT).show();
-                }
-            }
-
-        }
-        */
-    }
-
-    private void notifyBle(){
-        //UUID uuid_service = service.getUuid();
-        String uuid_service = "0000dfb0-0000-1000-8000-00805f9b34fb";
-        String uuid_characteristic_notify = "0000dfb1-0000-1000-8000-00805f9b34fb";
-        BleManager.getInstance().notify(
-                nowBleDevice,
-                uuid_service,
-                uuid_characteristic_notify,
-                new BleNotifyCallback() {
-                    @Override
-                    public void onNotifySuccess() {
-                        // 打开通知操作成功
-                        Log.d("notify", "Success");
-                        button_find.setEnabled(false); // 禁用按钮
-                        button_find.setText("成功開啟通知"); // 设置按钮的新文字
-                        Toast.makeText((Activity)LInflater.getContext(), "開始接收藍芽資料", Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onNotifyFailure(BleException exception) {
-                        Log.d("notify", "Failure");
-                        // 打开通知操作失败
-                        button_find.setEnabled(true); // 禁用按钮
-                        button_find.setText("通知操作失敗"); // 设置按钮的新文字
-                        Toast.makeText((Activity)LInflater.getContext(), "接收藍芽資料失敗", Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onCharacteristicChanged(byte[] data) {
-                        // 打开通知后，设备发过来的数据将在这里出现
-//                        Log.d("data", String.valueOf(data));
-                        handleData(data, data.length,LInflater);
-                    }
-                });
-    }
-
-    private void writeToBle(byte[] Data){
-        String uuid_service = "0000dfb0-0000-1000-8000-00805f9b34fb";
-        String uuid_characteristic_write = "0000dfb1-0000-1000-8000-00805f9b34fb";
-        //Justin Todo
-        //"0000dfb2-0000-1000-8000-00805f9b34fb"
-        BleManager.getInstance().write(
-                nowBleDevice,
-                uuid_service,
-                uuid_characteristic_write,
-                Data,
-                new BleWriteCallback() {
-                    @Override
-                    public void onWriteSuccess(int current, int total, byte[] justWrite) {
-                        Log.d("onWriteSuccess", "current: " + String.valueOf(current) + "total: " + String.valueOf(total) + "justWrite: " + justWrite);
-                    }
-
-                    @Override
-                    public void onWriteFailure(BleException exception) {
-                        Log.d("onWriteSuccess", "onWriteFailure");
-                    }
-                });
-    }
-
-    private void readBleData(){
-        String uuid_service = "0000dfb0-0000-1000-8000-00805f9b34fb";
-        String uuid_characteristic_read = "0000dfb1-0000-1000-8000-00805f9b34fb";
-        BleManager.getInstance().read(
-                nowBleDevice,
-                uuid_service,
-                uuid_characteristic_read,
-                new BleReadCallback() {
-                    @Override
-                    public void onReadSuccess(byte[] data) {
-                        handleData(data, data.length,LInflater);
-                    }
-
-                    @Override
-                    public void onReadFailure(BleException exception) {
-
-                    }
-                });
-    }
 }

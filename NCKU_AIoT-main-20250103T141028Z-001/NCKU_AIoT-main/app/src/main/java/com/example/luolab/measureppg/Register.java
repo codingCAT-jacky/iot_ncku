@@ -19,9 +19,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.LocalBroadcastManager;
+//import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
+//import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
+//import android.support.v4.content.LocalBroadcastManager;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,22 +47,14 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-//Justin Add
-import android.bluetooth.BluetoothGatt;
-import com.clj.fastble.BleManager;
-import com.clj.fastble.callback.BleGattCallback;
-import com.clj.fastble.callback.BleNotifyCallback;
-import com.clj.fastble.callback.BleScanCallback;
-import com.clj.fastble.data.BleDevice;
-import com.clj.fastble.exception.BleException;
-import com.clj.fastble.scan.BleScanRuleConfig;
-import android.widget.ListView;
-import java.io.IOException;
-import java.util.List;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import static com.example.luolab.measureppg.MainActivity.PlaceholderFragment.ARG_SECTION_NUMBER;
 
 public class Register extends Fragment {
-
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mDatabaseRef;
     private View ResigsterView;
     private View dialogView;
 
@@ -99,6 +94,48 @@ public class Register extends Fragment {
     ConnectivityManager cm;
 
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState){
+
+//        mDatabase = FirebaseDatabase.getInstance();
+//        mDatabaseRef = mDatabase.getReference("message");
+//
+//        // 写入数据
+////        mDatabaseRef.setValue("Hello, Firebase!");
+//        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        Date current1 = new Date();
+//
+//        String userN = "User1";
+//        String header = userN +"_"+ "selectedPara"+"_" + "PPGTime"+"min"+"_"+sdf1.format(current1) ;
+//
+////        String header = userN + "PPG";
+//        String windowed_ppg_str = "12345,23456,34567"; // 示例PPG数据
+//        double init_val = 0.1;                         // 初始值
+//        double target_val = 0.5;                       // 目标值
+//        double feedback_time = 2.5;                    // 反馈时间
+//        int voice_ctr = 3;
+//
+//        Upload_Firebase2(userN, header, "timestr",sdf1.format(current1));
+//        Upload_Firebase2(userN, header,"ppgstr",windowed_ppg_str);
+//        //Upload_Firebase2(header,"raw_data0",raw_data0_str);
+//        //Upload_Firebase2(header,"raw_data1",raw_data1_str);
+//        String config = "Inital value: "+Double.toString(init_val)+ ", Target value: "+Double.toString(target_val)+", Feedback time: "+Double.toString(feedback_time);
+//        String vc_str = Integer.toString(voice_ctr);
+//        Upload_Firebase2(userN, header, "config", config);
+//        Upload_Firebase2(userN, header, "feedback counter", vc_str);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         ResigsterView = inflater.inflate(R.layout.resigster, container, false);
 
@@ -208,9 +245,10 @@ public class Register extends Fragment {
                             Toast.makeText(LInflater.getContext(),"您未輸入任何訊息",Toast.LENGTH_SHORT).show();
                         }
                         else {
-
                             Toast.makeText(LInflater.getContext(),"帳號"+UsrInfo[0].getText().toString()+"設定完成",Toast.LENGTH_SHORT).show();
                             GuanView.usrName = UsrInfo[0].getText().toString();
+                            History.usrName = UsrInfo[0].getText().toString();
+
                             accName_tv.setText(UsrInfo[0].getText().toString());
                         }
 
@@ -247,4 +285,12 @@ public class Register extends Fragment {
 
 
     }
+
+    public void Upload_Firebase2(String user, String t, String s, String d) {
+        final FirebaseDatabase database = FirebaseDatabase.getInstance(); // 取得資料庫連結
+        DatabaseReference myRef = database.getReference(user).child(t);   // 新增資料節點，包含 User1
+        myRef.child(s).push().setValue(d);
+    }
+
+
 }

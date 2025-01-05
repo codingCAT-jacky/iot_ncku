@@ -1,37 +1,26 @@
 {
   "project_info": {
-    "project_number": "731055510783",
-    "firebase_url": "https://ppgiot-e13ad-default-rtdb.asia-southeast1.firebasedatabase.app",
-    "project_id": "ppgiot-e13ad",
-    "storage_bucket": "ppgiot-e13ad.appspot.com"
+    "project_number": "982899711174",
+    "project_id": "ppgiot2",
+    "storage_bucket": "ppgiot2.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:731055510783:android:a1df798ac2b0420f6f28ca",
+        "mobilesdk_app_id": "1:982899711174:android:ca9837eb71905436cb4bc7",
         "android_client_info": {
           "package_name": "com.example.luolab.measureppg"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "731055510783-2j61amrli8b533c0ubdr7sgp3nojbq94.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCfxVdK2pfrByIR4d67kjFGpUOgVXXDfUU"
+          "current_key": "AIzaSyAcoTJO5ntQXnbLBTxdojAv_xSdNk9bT-s"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "731055510783-2j61amrli8b533c0ubdr7sgp3nojbq94.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
