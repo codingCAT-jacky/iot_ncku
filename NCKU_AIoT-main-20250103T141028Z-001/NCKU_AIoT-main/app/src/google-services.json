@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "731055510783",
+    "project_id": "ppgiot-e13ad",
+    "storage_bucket": "ppgiot-e13ad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:731055510783:android:a1df798ac2b0420f6f28ca",
+        "android_client_info": {
+          "package_name": "com.example.luolab.measureppg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "731055510783-2j61amrli8b533c0ubdr7sgp3nojbq94.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfxVdK2pfrByIR4d67kjFGpUOgVXXDfUU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "731055510783-2j61amrli8b533c0ubdr7sgp3nojbq94.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

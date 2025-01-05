@@ -1,0 +1,9 @@
+/.gradle
+/.idea
+/app/build
+/openCVLibrary341/build
+/openCVLibrary341/build/outputs
+/openCVLibrary341/build/tmp
+/openCVLibrary341/build/.transforms
+/openCVLibrary341/build/generated
+/openCVLibrary341/build/intermediates
