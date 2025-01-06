@@ -1,0 +1,4 @@
+#Sat May 04 08:01:08 CST 2024
+base.0=C\:\\Users\\C5DD\\Desktop\\IOT\\Project2\\Measure_PPG_UI_modified_latest\\openCVLibrary341\\build\\intermediates\\dex\\debugAndroidTest\\mergeDexDebugAndroidTest\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
