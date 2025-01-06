@@ -1,0 +1,6 @@
+org.opencv.test.openCVLibrary341-androidTest-0 C:\Users\C5DD\Desktop\IOT\Project2\Measure_PPG_UI_modified_latest\openCVLibrary341\build\generated\res\resValues\androidTest\debug
+org.opencv.test.openCVLibrary341-androidTest-1 C:\Users\C5DD\Desktop\IOT\Project2\Measure_PPG_UI_modified_latest\openCVLibrary341\build\generated\res\rs\androidTest\debug
+org.opencv.test.openCVLibrary341-mergeDebugAndroidTestResources-2 C:\Users\C5DD\Desktop\IOT\Project2\Measure_PPG_UI_modified_latest\openCVLibrary341\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
+org.opencv.test.openCVLibrary341-mergeDebugAndroidTestResources-3 C:\Users\C5DD\Desktop\IOT\Project2\Measure_PPG_UI_modified_latest\openCVLibrary341\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
+org.opencv.test.openCVLibrary341-merged_res-4 C:\Users\C5DD\Desktop\IOT\Project2\Measure_PPG_UI_modified_latest\openCVLibrary341\build\intermediates\merged_res\debugAndroidTest
+org.opencv.test.openCVLibrary341-packaged_res-5 C:\Users\C5DD\Desktop\IOT\Project2\Measure_PPG_UI_modified_latest\openCVLibrary341\build\intermediates\packaged_res\debug

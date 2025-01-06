@@ -1,0 +1,19 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string-array name="spinnerValue">
+        <item>SDNN</item>
+        <item>HF</item>
+        <item>Breathing rate</item>
+
+    </string-array>
+
+    <string-array name="date_range_options">
+        <item>近三天</item>
+        <item>近一周</item>
+        <item>近一個月</item>
+    </string-array>
+
+
+</resources>

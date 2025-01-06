@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MeasurePPG</string>
+    <string name="action_settings">Settings</string>
+    <string name="setting">設置</string>
+    <string name="permissions_allow">允許</string>
+    <string name="permissions_deny">拒绝</string>
+    <string name="permission_camera_dialog_title">開啟手機鏡頭</string>
+    <string name="permission_camera_dialog_msg_scanner">請允許我開啟手機鏡頭,使我能夠開始偵測.</string>
+    <string name="permission_camera_denied_msg">授權失敗,手機鏡頭無法打開</string>
+    <string name="permission_camera_never_ask_again">你已禁止獲取攝像頭權限,需要在設置中開啟攝像頭權限</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+</resources>
