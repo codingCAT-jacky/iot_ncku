@@ -25,6 +25,7 @@ animator mtrl_fab_hide_motion_spec
 animator mtrl_fab_show_motion_spec
 animator mtrl_fab_transformation_sheet_collapse_spec
 animator mtrl_fab_transformation_sheet_expand_spec
+array date_range_options
 array spinnerValue
 attr actionBarDivider
 attr actionBarItemBackground
@@ -1199,6 +1200,7 @@ id customPanel
 id dark
 id data_chart
 id data_chart2
+id dateRangeSpinner
 id decor_content_parent
 id default_activity_button
 id design_bottom_sheet
@@ -1237,6 +1239,7 @@ id gone
 id group_divider
 id groups
 id hf_tv
+id historyGraph
 id home
 id homeAsUp
 id icon
@@ -1405,6 +1408,7 @@ id tvPara2
 id uniform
 id unlabeled
 id up
+id updateGraph
 id update_graph_btn
 id useLogo
 id view_offset_helper
@@ -1480,6 +1484,7 @@ layout design_navigation_menu_item
 layout design_text_input_password_icon
 layout fragment_main
 layout guan
+layout history
 layout menu
 layout mtrl_layout_snackbar
 layout mtrl_layout_snackbar_include

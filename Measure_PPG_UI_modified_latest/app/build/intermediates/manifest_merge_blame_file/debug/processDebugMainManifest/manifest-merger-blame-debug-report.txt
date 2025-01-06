@@ -1,0 +1,166 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.luolab.measureppg"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="23"
+9        android:targetSdkVersion="27" />
+10
+11    <uses-feature android:name="android.hardware.usb.host" />
+11-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:4:5-62
+11-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:4:19-59
+12
+13    <uses-permission android:name="android.permission.BLUETOOTH" />
+13-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:6:5-68
+13-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:6:22-65
+14    <uses-permission android:name="android.permission.CAMERA" />
+14-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:7:5-65
+14-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:7:22-62
+15    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILES" />
+15-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:8:5-77
+15-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:8:22-75
+16    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+16-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:9:5-79
+16-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:9:22-77
+17    <uses-permission android:name="android.permission.VIBRATE" />
+17-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:10:5-65
+17-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:10:22-63
+18    <uses-permission android:name="android.permission.WAKE_LOCK" />
+18-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:11:5-68
+18-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:11:22-65
+19
+20    <uses-feature android:name="android.hardware.camera" />
+20-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:13:5-60
+20-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:13:19-57
+21    <uses-feature android:name="android.hardware.camera.autofocus" />
+21-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:14:5-70
+21-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:14:19-67
+22    <uses-feature android:name="android.hardware.camera.front" />
+22-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:15:5-66
+22-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:15:19-63
+23    <uses-feature android:name="android.hardware.camera.front.autofocus" />
+23-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:16:5-76
+23-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:16:19-73
+24    <uses-feature android:name="android.hardware.camera.flash" />
+24-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:17:5-66
+24-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:17:19-63
+25
+26    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+26-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:19:5-80
+26-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:19:22-78
+27    <uses-permission android:name="android.permission.INTERNET" />
+27-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:20:5-67
+27-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:20:22-64
+28    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+28-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:21:5-79
+28-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:21:22-76
+29
+30    <application
+30-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:23:5-43:19
+31        android:allowBackup="true"
+31-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:24:9-35
+32        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+32-->[androidx.core:core:1.2.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\788f03ce49219270811a198d0a140c65\transformed\core-1.2.0\AndroidManifest.xml:24:18-86
+33        android:debuggable="true"
+34        android:extractNativeLibs="false"
+35        android:icon="@mipmap/ic_launcher"
+35-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:25:9-43
+36        android:label="@string/app_name"
+36-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:26:9-41
+37        android:roundIcon="@mipmap/ic_launcher_round"
+37-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:27:9-54
+38        android:supportsRtl="true"
+38-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:28:9-35
+39        android:testOnly="true"
+40        android:theme="@style/AppTheme" >
+40-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:29:9-40
+41        <activity
+41-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:30:9-41:20
+42            android:name="com.example.luolab.measureppg.MainActivity"
+42-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:31:13-41
+43            android:label="@string/app_name"
+43-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:32:13-45
+44            android:theme="@style/AppTheme.NoActionBar" >
+44-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:33:13-56
+45            <intent-filter>
+45-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:34:13-40:29
+46                <action android:name="android.intent.action.MAIN" />
+46-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:35:17-68
+46-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:35:25-66
+47                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+47-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:37:17-90
+47-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:37:25-87
+48
+49                <category android:name="android.intent.category.LAUNCHER" />
+49-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:39:17-76
+49-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\app\src\main\AndroidManifest.xml:39:27-74
+50            </intent-filter>
+51        </activity>
+52
+53        <service
+53-->[com.google.firebase:firebase-database:21.0.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\01e335f1e1630e3a0742d049c183d513\transformed\jetified-firebase-database-21.0.0\AndroidManifest.xml:26:9-35:19
+54            android:name="com.google.firebase.components.ComponentDiscoveryService"
+54-->[com.google.firebase:firebase-database:21.0.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\01e335f1e1630e3a0742d049c183d513\transformed\jetified-firebase-database-21.0.0\AndroidManifest.xml:27:13-84
+55            android:directBootAware="true"
+55-->[com.google.firebase:firebase-common:21.0.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\8dacefc3a0a35add5e36a241e9f0ff2c\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:32:13-43
+56            android:exported="false" >
+56-->[com.google.firebase:firebase-database:21.0.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\01e335f1e1630e3a0742d049c183d513\transformed\jetified-firebase-database-21.0.0\AndroidManifest.xml:28:13-37
+57            <meta-data
+57-->[com.google.firebase:firebase-database:21.0.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\01e335f1e1630e3a0742d049c183d513\transformed\jetified-firebase-database-21.0.0\AndroidManifest.xml:29:13-31:85
+58                android:name="com.google.firebase.components:com.google.firebase.database.FirebaseDatabaseKtxRegistrar"
+58-->[com.google.firebase:firebase-database:21.0.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\01e335f1e1630e3a0742d049c183d513\transformed\jetified-firebase-database-21.0.0\AndroidManifest.xml:30:17-120
+59                android:value="com.google.firebase.components.ComponentRegistrar" />
+59-->[com.google.firebase:firebase-database:21.0.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\01e335f1e1630e3a0742d049c183d513\transformed\jetified-firebase-database-21.0.0\AndroidManifest.xml:31:17-82
+60            <meta-data
+60-->[com.google.firebase:firebase-database:21.0.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\01e335f1e1630e3a0742d049c183d513\transformed\jetified-firebase-database-21.0.0\AndroidManifest.xml:32:13-34:85
+61                android:name="com.google.firebase.components:com.google.firebase.database.DatabaseRegistrar"
+61-->[com.google.firebase:firebase-database:21.0.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\01e335f1e1630e3a0742d049c183d513\transformed\jetified-firebase-database-21.0.0\AndroidManifest.xml:33:17-109
+62                android:value="com.google.firebase.components.ComponentRegistrar" />
+62-->[com.google.firebase:firebase-database:21.0.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\01e335f1e1630e3a0742d049c183d513\transformed\jetified-firebase-database-21.0.0\AndroidManifest.xml:34:17-82
+63            <meta-data
+63-->[com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\2be7d9ffe885f42c7cbcc8265335065a\transformed\jetified-firebase-common-ktx-21.0.0\AndroidManifest.xml:12:13-14:85
+64                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar"
+64-->[com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\2be7d9ffe885f42c7cbcc8265335065a\transformed\jetified-firebase-common-ktx-21.0.0\AndroidManifest.xml:13:17-116
+65                android:value="com.google.firebase.components.ComponentRegistrar" />
+65-->[com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\2be7d9ffe885f42c7cbcc8265335065a\transformed\jetified-firebase-common-ktx-21.0.0\AndroidManifest.xml:14:17-82
+66            <meta-data
+66-->[com.google.firebase:firebase-common:21.0.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\8dacefc3a0a35add5e36a241e9f0ff2c\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:35:13-37:85
+67                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
+67-->[com.google.firebase:firebase-common:21.0.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\8dacefc3a0a35add5e36a241e9f0ff2c\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:36:17-109
+68                android:value="com.google.firebase.components.ComponentRegistrar" />
+68-->[com.google.firebase:firebase-common:21.0.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\8dacefc3a0a35add5e36a241e9f0ff2c\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:37:17-82
+69        </service>
+70
+71        <provider
+71-->[com.google.firebase:firebase-common:21.0.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\8dacefc3a0a35add5e36a241e9f0ff2c\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:23:9-28:39
+72            android:name="com.google.firebase.provider.FirebaseInitProvider"
+72-->[com.google.firebase:firebase-common:21.0.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\8dacefc3a0a35add5e36a241e9f0ff2c\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:24:13-77
+73            android:authorities="com.example.luolab.measureppg.firebaseinitprovider"
+73-->[com.google.firebase:firebase-common:21.0.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\8dacefc3a0a35add5e36a241e9f0ff2c\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:25:13-72
+74            android:directBootAware="true"
+74-->[com.google.firebase:firebase-common:21.0.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\8dacefc3a0a35add5e36a241e9f0ff2c\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:26:13-43
+75            android:exported="false"
+75-->[com.google.firebase:firebase-common:21.0.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\8dacefc3a0a35add5e36a241e9f0ff2c\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:27:13-37
+76            android:initOrder="100" />
+76-->[com.google.firebase:firebase-common:21.0.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\8dacefc3a0a35add5e36a241e9f0ff2c\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:28:13-36
+77
+78        <activity
+78-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\b812e7afeb05dc11c846a338631b9abd\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:20:9-22:45
+79            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+79-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\b812e7afeb05dc11c846a338631b9abd\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:20:19-85
+80            android:exported="false"
+80-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\b812e7afeb05dc11c846a338631b9abd\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:22:19-43
+81            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+81-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\b812e7afeb05dc11c846a338631b9abd\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:21:19-78
+82
+83        <meta-data
+83-->[com.google.android.gms:play-services-basement:18.3.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\20660d797c7368a5884ec590eba18895\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:21:9-23:69
+84            android:name="com.google.android.gms.version"
+84-->[com.google.android.gms:play-services-basement:18.3.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\20660d797c7368a5884ec590eba18895\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:22:13-58
+85            android:value="@integer/google_play_services_version" />
+85-->[com.google.android.gms:play-services-basement:18.3.0] C:\Users\JackyLai2\.gradle\caches\transforms-4\20660d797c7368a5884ec590eba18895\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:23:13-66
+86    </application>
+87
+88</manifest>

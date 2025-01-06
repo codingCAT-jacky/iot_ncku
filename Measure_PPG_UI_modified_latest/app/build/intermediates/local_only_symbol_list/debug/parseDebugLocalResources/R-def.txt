@@ -1,5 +1,6 @@
 R_DEF: Internal format may change without notice
 local
+array date_range_options
 array spinnerValue
 color colorAccent
 color colorPrimary
@@ -43,6 +44,7 @@ id constraintLayout
 id container
 id data_chart
 id data_chart2
+id dateRangeSpinner
 id exhale_time_tv
 id exhale_tv
 id feedCount
@@ -51,6 +53,7 @@ id feedback_init_tv
 id feedback_target_tv
 id gender_tv
 id hf_tv
+id historyGraph
 id imageView5
 id inhale_time_tv
 id inhale_tv
@@ -95,11 +98,13 @@ id time_val
 id triggerFeedback_tv
 id tvPara1
 id tvPara2
+id updateGraph
 id update_graph_btn
 layout activity_main
 layout custom_tab
 layout fragment_main
 layout guan
+layout history
 layout menu
 layout ppg_feature_information
 layout resigster

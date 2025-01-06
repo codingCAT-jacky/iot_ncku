@@ -1,5 +1,7 @@
 package com.example.luolab.measureppg;
-
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -40,6 +42,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import com.felhr.usbserial.UsbSerialDevice;
@@ -78,7 +82,9 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
+import java.util.Set;
 import java.util.Stack;
+import java.util.UUID;
 import java.util.zip.Inflater;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -332,7 +338,7 @@ public class GuanView extends Fragment {
     private int timeStampsCtr = 0;
     private double[] br_SDNN_arr = new double[1800];
     private int brSDNNCtr = 0;
-    private byte[] SerialData_Queue = new byte[SerialDataSize];
+    private int[] SerialData_Queue = new int[SerialDataSize];
     private int Queue_Index_Rear = 0;
     private int Queue_Index_Front = 0;
 
@@ -3220,12 +3226,12 @@ public class GuanView extends Fragment {
     }
 
     // 將收到的 Serial 資料 進行畫圖呈現
-    private void UpdateGraph(final int size, final LayoutInflater inflater){
+    private void UpdateGraph( final LayoutInflater inflater){
         if(!abortTraining){
             G_Graph.post(new Runnable() {
                 @Override
                 public void run() {
-                    AppedSeriesData(size, LInflater);
+                    AppedSeriesData(LInflater);
                     G_Graph.getViewport().setMaxX(mXPoint);
                     //G_Graph.getViewport().setMinX(0);
                     G_Graph.getViewport().setMinX(mXPoint - (Scale*3));
