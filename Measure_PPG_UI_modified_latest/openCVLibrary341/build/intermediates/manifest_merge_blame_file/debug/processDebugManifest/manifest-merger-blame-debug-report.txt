@@ -5,7 +5,7 @@
 5    android:versionName="3.4.1" >
 6
 7    <uses-sdk android:minSdkVersion="8" />
-7-->C:\Users\JackyLai2\Downloads\Measure_PPG_UI_modified_latest\openCVLibrary341\src\main\AndroidManifest.xml:6:5-73
-7-->C:\Users\JackyLai2\Downloads\Measure_PPG_UI_modified_latest\openCVLibrary341\src\main\AndroidManifest.xml:6:15-40
+7-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\openCVLibrary341\src\main\AndroidManifest.xml:6:5-73
+7-->C:\Users\JackyLai2\Documents\GitHub\iot_ncku\Measure_PPG_UI_modified_latest\openCVLibrary341\src\main\AndroidManifest.xml:6:15-40
 8
 9</manifest>

@@ -1378,7 +1378,7 @@ public class GuanView extends Fragment {
                 }
 
                 G_Series2.appendData(new DataPoint(mXPointPara, valueToPlot), false, 200);
-
+                Log.e("hf is ", String.valueOf(breathRate));
 
                 //G_Series_para = new LineGraphSeries<DataPoint>(dataPointPara());
 
@@ -2334,8 +2334,8 @@ public class GuanView extends Fragment {
                                     //Log.d("TAG", "normal_sdnn_upper:"+normal_sdnn_upper );
                                     //Log.d("TAG", "std_rrlist(in if):"+std_rrlist );
                                     if(std_rrlist > normal_sdnn_upper){
-                                        mpRemeasure.start();
-                                        init_error = true;
+//                                        mpRemeasure.start();
+//                                        init_error = true;
 
                                     }
 
@@ -3198,9 +3198,9 @@ public class GuanView extends Fragment {
         if (mXPoint <= G_Series.getHighestValueX()) {
             mXPoint = (int) G_Series.getHighestValueX() + 1; // 確保 x 值遞增
         }
-        if((samplePPG++) %2==1){
-            G_Series.appendData(new DataPoint(mXPoint++,data), true, 200);
-        }
+
+        G_Series.appendData(new DataPoint(mXPoint++,data), true, 200);
+
 
         queueData[0][0] = data ;
         queueData[0][1] = 0.0;
@@ -4372,7 +4372,7 @@ public class GuanView extends Fragment {
                                     handler.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            Log.e("data is  ", data + " " +  String.valueOf(b));
+//                                            Log.e("data is  ", data + " " +  String.valueOf(b));
 //                                            show_data.setText(data);
                                         }
                                     });
